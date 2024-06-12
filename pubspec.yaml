@@ -35,6 +35,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
+  dio: ^5.4.3+1
+  flutter_secure_storage: ^9.2.2
 
 dev_dependencies:
   flutter_test:
@@ -46,6 +48,10 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
+  uuid: ^4.4.0
+  json_serializable: ^6.8.0
+  retrofit_generator: ^8.1.0
+  build_runner: ^2.4.11
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -57,7 +63,8 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  assets:
+    - asset/img/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
@@ -74,6 +81,28 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: CormorantGaramond
+      fonts:
+        - asset: asset/fonts/CormorantGaramond-Bold.ttf
+          weight: 900
+        - asset: asset/fonts/CormorantGaramond-SemiBold.ttf
+          weight: 700
+        - asset: asset/fonts/CormorantGaramond-Medium.ttf
+          weight: 500
+        - asset: asset/fonts/CormorantGaramond-Regular.ttf
+          weight: 300
+        - asset: asset/fonts/CormorantGaramond-Light.ttf
+          weight: 100
+    - family: AppleSDGothicNeo
+      fonts:
+        - asset: asset/fonts/AppleSDGothicNeoB.ttf
+          weight: 500
+        - asset: asset/fonts/AppleSDGothicNeoM.ttf
+          weight: 300
+
+
+
   # fonts:
   #   - family: Schyler
   #     fonts:
