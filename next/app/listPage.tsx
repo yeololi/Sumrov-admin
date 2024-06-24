@@ -94,7 +94,20 @@ const ListPage = ({ args, i }: { args: category; i: number }) => {
                   ) : (
                     <>
                       <div
-                        // onClick={}
+                        onClick={() => {
+                          try {
+                            fetch(
+                              `http://3.39.237.151:8080/notice/${arg.Uuid}`,
+                              {
+                                method: "DELETE",
+                              }
+                            ).then((r) => {
+                              console.log(r);
+                            });
+                          } catch (error) {
+                            console.error(error);
+                          }
+                        }}
                         className="text-center text-black text-2xl font-semibold bg-zinc-300 p-1"
                       >
                         삭제
