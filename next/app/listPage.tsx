@@ -2,6 +2,7 @@
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
+import { Plus } from "lucide-react";
 import Link from "next/link";
 
 export interface category {
@@ -61,7 +62,14 @@ const ListPage = ({ args, i }: { args: category; i: number }) => {
   return (
     <>
       <div className="flex-col justify-start items-start flex gap-4">
-        <div className="text-black text-4xl font-bold">{args.category}</div>
+        <div className="flex justify-between items-center w-full">
+          <div className="text-black text-4xl font-bold">{args.category}</div>
+          {i != 0 && (
+            <Link href={""}>
+              <Plus size={30} />
+            </Link>
+          )}
+        </div>
         <ScrollArea className="h-[500px] px-4 py-[30px] bg-zinc-300 flex-col justify-start items-start flex">
           {Array.isArray(args.data) &&
             args.data.map((arg, j) => (
@@ -97,7 +105,9 @@ const ListPage = ({ args, i }: { args: category; i: number }) => {
                         onClick={() => {
                           try {
                             fetch(
-                              `http://3.39.237.151:8080/notice/${arg.Uuid}`,
+                              isPostType(arg)
+                                ? `http://3.39.237.151:8080/post/${arg.Uuid}`
+                                : `http://3.39.237.151:8080/notice/${arg.Uuid}`,
                               {
                                 method: "DELETE",
                               }
@@ -108,13 +118,16 @@ const ListPage = ({ args, i }: { args: category; i: number }) => {
                             console.error(error);
                           }
                         }}
-                        className="text-center text-black text-2xl font-semibold bg-zinc-300 p-1"
+                        className="text-center text-black text-2xl font-semibold bg-zinc-300 p-1 cursor-pointer"
                       >
                         삭제
                       </div>
-                      <div className="text-center text-black text-2xl font-semibold bg-zinc-300 p-1">
+                      <Link
+                        href={isPostType(arg) ? "/registration" : "noticePage"}
+                        className="text-center text-black text-2xl font-semibold bg-zinc-300 p-1 cursor-pointer"
+                      >
                         수정
-                      </div>
+                      </Link>
                     </>
                   )}
                 </div>
