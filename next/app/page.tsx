@@ -13,8 +13,9 @@ const getData = async () => {
     "http://3.39.237.151:8080/notice",
   ];
 
-  const promises = urls.map((url, i) =>
-    fetch(url, { cache: "no-store" }).then((r) => r.json())
+  const promises = urls.map(
+    async (url, i) =>
+      await fetch(url, { cache: "no-store" }).then((r) => r.json())
   );
 
   try {
