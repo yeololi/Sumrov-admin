@@ -4,6 +4,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import ListPage, { category } from "./listPage";
 
+const admin = false;
+
 const getData = async () => {
   const urls = [
     "http://3.39.237.151:8080/sale",
@@ -11,8 +13,9 @@ const getData = async () => {
     "http://3.39.237.151:8080/notice",
   ];
 
-  const promises = urls.map((url, i) =>
-    fetch(url, { cache: "no-store" }).then((r) => r.json())
+  const promises = urls.map(
+    async (url, i) =>
+      await fetch(url, { cache: "no-store" }).then((r) => r.json())
   );
 
   try {
@@ -49,7 +52,8 @@ export default async function Home() {
 
   return (
     <>
-      <Modal />
+      {admin && <Modal />}
+
       <main className="h-screen px-[20px] pt-9">
         <nav className="w-full justify-between items-center flex">
           <div className="gap-4 items-center flex">
@@ -68,7 +72,6 @@ export default async function Home() {
             ))}
           </div>
         </Suspense>
-         
 
         <div className="mt-52 text-center text-black text-5xl font-bold">
           Design By 정현서

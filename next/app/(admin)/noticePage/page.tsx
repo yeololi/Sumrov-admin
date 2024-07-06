@@ -3,7 +3,7 @@
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Menu, Minus, Plus, X } from "lucide-react";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -14,12 +14,51 @@ const initialInputsState = {
   description: "",
 };
 
-const RegistrationPage = () => {
+const fetchData = async (
+  uuid: string,
+  type: string,
+  setInputs: Dispatch<
+    SetStateAction<{
+      title: string;
+      description: string;
+    }>
+  >
+) => {
+  try {
+    const response = await fetch(
+      `http://3.39.237.151:8080/${type}/${uuid}`
+    ).then((r) => r.json());
+
+    console.log(response);
+
+    setInputs({
+      title: response.results[0].Title,
+      description: response.results[0].Description,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const RegistrationPage = ({
+  searchParams,
+}: {
+  searchParams?: { uuid: string; type: "notice" | "post" };
+}) => {
   const router = useRouter();
 
   const [inputs, setInputs] = useState(initialInputsState);
-
   const [image, setImage] = useState<File | null>(null);
+
+  useEffect(() => {
+    const fet = async () => {
+      if (searchParams?.uuid) {
+        await fetchData(searchParams.uuid, searchParams.type, setInputs);
+      }
+    };
+    fet();
+  }, []);
+
   const [isLoading, setIsLoading] = useState(false);
 
   const [createObjectURL, setCreateObjectURL] = useState<string | null>(null);

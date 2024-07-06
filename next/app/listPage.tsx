@@ -65,7 +65,11 @@ const ListPage = ({ args, i }: { args: category; i: number }) => {
         <div className="flex justify-between items-center w-full">
           <div className="text-black text-4xl font-bold">{args.category}</div>
           {i != 0 && (
-            <Link href={""}>
+            <Link
+              href={
+                args.category === "상품관리" ? "/registration" : "/noticePage"
+              }
+            >
               <Plus size={30} />
             </Link>
           )}
@@ -123,7 +127,17 @@ const ListPage = ({ args, i }: { args: category; i: number }) => {
                         삭제
                       </div>
                       <Link
-                        href={isPostType(arg) ? "/registration" : "noticePage"}
+                        href={
+                          isPostType(arg)
+                            ? {
+                                query: { uuid: arg.Uuid, type: "post" },
+                                pathname: `/registration`,
+                              }
+                            : {
+                                query: { uuid: arg.Uuid, type: "notice" },
+                                pathname: "noticePage",
+                              }
+                        }
                         className="text-center text-black text-2xl font-semibold bg-zinc-300 p-1 cursor-pointer"
                       >
                         수정

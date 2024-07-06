@@ -3,7 +3,7 @@
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Menu, Minus, Plus, X } from "lucide-react";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -34,7 +34,57 @@ const initialInputsState = {
 
 const yes = true;
 
-const RegistrationPage = () => {
+const fetchData = async (
+  uuid: string,
+  type: string,
+  setInputs: React.Dispatch<
+    React.SetStateAction<{
+      title: string;
+      price: string;
+      sale: string;
+      description: string;
+      category: string;
+    }>
+  >,
+  setTags: React.Dispatch<
+    React.SetStateAction<{
+      size: string[];
+      color: string[];
+      mainImage: File[];
+      detailImage: File[];
+    }>
+  >
+) => {
+  try {
+    const response = await fetch(
+      `http://3.39.237.151:8080/${type}/uuid/${uuid}`
+    ).then((r) => r.json());
+
+    console.log(response);
+
+    setInputs({
+      title: response.results[0].Title,
+      description: response.results[0].Description,
+      price: response.results[0].Price,
+      sale: response.results[0].Sale,
+      category: response.results[0].Category,
+    });
+
+    setTags((pre) => ({
+      ...pre,
+      size: response.results[0].Size,
+      color: response.results[0].Color,
+    }));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const RegistrationPage = ({
+  searchParams,
+}: {
+  searchParams?: { uuid: string; type: "notice" | "post" };
+}) => {
   const router = useRouter();
 
   const [tags, setTags] = useState<{
@@ -50,6 +100,20 @@ const RegistrationPage = () => {
   const [createObjectURL, setCreateObjectURL] = useState<{
     [key: string]: string;
   } | null>(null);
+
+  useEffect(() => {
+    const fet = async () => {
+      if (searchParams?.uuid) {
+        await fetchData(
+          searchParams.uuid,
+          searchParams.type,
+          setInputs,
+          setTags
+        );
+      }
+    };
+    fet();
+  }, []);
 
   const postFetch = async () => {
     setIsLoading(() => true);
