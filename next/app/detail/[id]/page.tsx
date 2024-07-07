@@ -60,7 +60,7 @@ const DetailPage = () => {
   const saveForm = async () => {
     try {
       const res = await fetch(
-        "http://3.39.237.151:8080/sale/" + orderData.results.Uuid,
+        "http://3.39.237.151:8080/sale" + orderData.results.Uuid,
         {
           method: "PUT",
           body: JSON.stringify({ PostNum: input, status: selectValue }),
