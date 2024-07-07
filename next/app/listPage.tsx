@@ -110,8 +110,8 @@ const ListPage = ({ args, i }: { args: category; i: number }) => {
                           try {
                             fetch(
                               isPostType(arg)
-                                ? `http://3.39.237.151:8080/post/${arg.Uuid}`
-                                : `http://3.39.237.151:8080/notice/${arg.Uuid}`,
+                                ? `api/post/del/${arg.Uuid}`
+                                : `api/notice/del/${arg.Uuid}`,
                               {
                                 method: "DELETE",
                               }
