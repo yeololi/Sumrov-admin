@@ -56,7 +56,7 @@ const fetchData = async (
   >
 ) => {
   try {
-    const response = await fetch(`api/${type}/${uuid}`).then((r) => r.json());
+    const response = await fetch(`/api/${type}/${uuid}`).then((r) => r.json());
 
     console.log(response);
 
