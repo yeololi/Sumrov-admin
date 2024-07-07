@@ -56,9 +56,7 @@ const fetchData = async (
   >
 ) => {
   try {
-    const response = await fetch(
-      `http://3.39.237.151:8080/${type}/uuid/${uuid}`
-    ).then((r) => r.json());
+    const response = await fetch(`api/${type}/${uuid}`).then((r) => r.json());
 
     console.log(response);
 
