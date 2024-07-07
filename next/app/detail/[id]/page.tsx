@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import * as React from "react";
 import { useRouter } from "next/navigation";
 
-const DetailPage = () => {
+const DetailPage = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
 
   const [orderData, setOrderData] = useState<any>(null);
@@ -22,7 +22,7 @@ const DetailPage = () => {
   useEffect(() => {
     const fetchOrderData = async () => {
       try {
-        const data = await FetchData();
+        const data = await FetchData(params.id);
         console.log(data.results);
         setOrderData(data);
         setInput(data?.results.PostNum);

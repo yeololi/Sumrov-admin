@@ -1,9 +1,9 @@
-const FetchData = async (): Promise<any> => {
+const FetchData = async (uid: string): Promise<any> => {
   try {
-    const response = await fetch(
-      "http://3.39.237.151:8080/sale/91279335-9e2e-46de-a336-0a35ec267b43",
-      { method: "GET", cache: "no-store" }
-    );
+    const response = await fetch("/api/sale/" + uid, {
+      method: "GET",
+      cache: "no-store",
+    });
 
     if (!response.ok) {
       throw new Error("Failed to fetch data");
