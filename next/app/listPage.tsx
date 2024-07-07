@@ -106,9 +106,9 @@ const ListPage = ({ args, i }: { args: category; i: number }) => {
                   ) : (
                     <>
                       <div
-                        onClick={() => {
+                        onClick={async () => {
                           try {
-                            fetch(
+                            await fetch(
                               isPostType(arg)
                                 ? `api/post/del/${arg.Uuid}`
                                 : `api/notice/del/${arg.Uuid}`,
