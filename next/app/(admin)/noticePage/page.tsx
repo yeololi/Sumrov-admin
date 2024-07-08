@@ -23,20 +23,7 @@ const fetchData = async (
       description: string;
     }>
   >
-) => {
-  try {
-    const response = await fetch(`/api/${type}/${uuid}`).then((r) => r.json());
-
-    console.log(response);
-
-    setInputs({
-      title: response.results[0].Title,
-      description: response.results[0].Description,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
+) => {};
 
 const RegistrationPage = ({
   searchParams,
@@ -51,7 +38,20 @@ const RegistrationPage = ({
   useEffect(() => {
     const fet = async () => {
       if (searchParams?.uuid) {
-        await fetchData(searchParams.uuid, searchParams.type, setInputs);
+        try {
+          const response = await fetch(
+            `/api/${searchParams.type}/${searchParams.uuid}`
+          ).then((r) => r.json());
+
+          console.log(response);
+
+          setInputs({
+            title: response.results[0].Title,
+            description: response.results[0].Description,
+          });
+        } catch (error) {
+          console.error(error);
+        }
       }
     };
     fet();

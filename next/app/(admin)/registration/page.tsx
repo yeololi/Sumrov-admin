@@ -34,50 +34,6 @@ const initialInputsState = {
 
 const yes = true;
 
-const fetchData = async (
-  uuid: string,
-  type: string,
-  setInputs: React.Dispatch<
-    React.SetStateAction<{
-      title: string;
-      price: string;
-      sale: string;
-      description: string;
-      category: string;
-    }>
-  >,
-  setTags: React.Dispatch<
-    React.SetStateAction<{
-      size: string[];
-      color: string[];
-      mainImage: File[];
-      detailImage: File[];
-    }>
-  >
-) => {
-  try {
-    const response = await fetch(`/api/${type}/${uuid}`).then((r) => r.json());
-
-    console.log(response);
-
-    setInputs({
-      title: response.results[0].Title,
-      description: response.results[0].Description,
-      price: response.results[0].Price,
-      sale: response.results[0].Sale,
-      category: response.results[0].Category,
-    });
-
-    setTags((pre) => ({
-      ...pre,
-      size: response.results[0].Size,
-      color: response.results[0].Color,
-    }));
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 const RegistrationPage = ({
   searchParams,
 }: {
@@ -102,12 +58,29 @@ const RegistrationPage = ({
   useEffect(() => {
     const fet = async () => {
       if (searchParams?.uuid) {
-        await fetchData(
-          searchParams.uuid,
-          searchParams.type,
-          setInputs,
-          setTags
-        );
+        try {
+          const response = await fetch(
+            `/api/${searchParams.type}/${searchParams.uuid}`
+          ).then((r) => r.json());
+
+          console.log(response);
+
+          setInputs({
+            title: response.results[0].Title,
+            description: response.results[0].Description,
+            price: response.results[0].Price,
+            sale: response.results[0].Sale,
+            category: response.results[0].Category,
+          });
+
+          setTags((pre) => ({
+            ...pre,
+            size: response.results[0].Size,
+            color: response.results[0].Color,
+          }));
+        } catch (error) {
+          console.error(error);
+        }
       }
     };
     fet();
