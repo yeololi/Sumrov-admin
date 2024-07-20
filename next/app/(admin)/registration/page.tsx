@@ -625,39 +625,14 @@ const RegistrationPage = ({
                   </div>
                   <div className="flex-col justify-start items-start gap-10 flex">
                     {createObjectURL &&
-                    tags.detailImage[0] &&
-                    tags.detailImage[1] &&
-                    tags.detailImage[2] ? (
-                      <>
-                        <img
-                          className="w-[550px] h-[733.33px]"
-                          src={createObjectURL[tags.detailImage[0].name]}
-                        />
-                        <img
-                          className="w-[550px] h-[733.33px]"
-                          src={createObjectURL[tags.detailImage[1].name]}
-                        />
-                        <img
-                          className="w-[550px] h-[733.33px]"
-                          src={createObjectURL[tags.detailImage[2].name]}
-                        />
-                      </>
-                    ) : (
-                      <>
-                        <img
-                          className="w-[550px] h-[733.33px]"
-                          src="https://via.placeholder.com/550x733"
-                        />
-                        <img
-                          className="w-[550px] h-[733.33px]"
-                          src="https://via.placeholder.com/550x733"
-                        />
-                        <img
-                          className="w-[550px] h-[733.33px]"
-                          src="https://via.placeholder.com/550x733"
-                        />
-                      </>
-                    )}
+                      tags.detailImage.map((ai, i) => (
+                        <>
+                          <img
+                            className="w-[550px] h-[733.33px]"
+                            src={createObjectURL[ai.name]}
+                          />
+                        </>
+                      ))}
                   </div>
                 </div>
               </div>

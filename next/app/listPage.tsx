@@ -4,6 +4,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { Plus } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export interface category {
   category: string;
@@ -59,6 +60,8 @@ const isNoticeType = (arg: any): arg is NoticeType => {
 };
 
 const ListPage = ({ args, i }: { args: category; i: number }) => {
+  const router = useRouter();
+
   return (
     <>
       <div className="flex-col justify-start items-start flex gap-4">
@@ -86,9 +89,9 @@ const ListPage = ({ args, i }: { args: category; i: number }) => {
               >
                 <div className="text-black text-[27px] font-semibold ml-3 text-nowrap text-ellipsis overflow-hidden flex-1">
                   {isSaleType(arg)
-                    ? "주문자: " + arg.CustomerName
+                    ? arg.Status + ": " + arg.Uuid
                     : isPostType(arg)
-                    ? "제목: " + arg.Title
+                    ? arg.Category + ": " + arg.Title
                     : isNoticeType(arg)
                     ? "제목: " + arg.Title
                     : null}
@@ -118,6 +121,8 @@ const ListPage = ({ args, i }: { args: category; i: number }) => {
                             ).then((r) => {
                               console.log(r);
                             });
+
+                            router.refresh();
                           } catch (error) {
                             console.error(error);
                           }
