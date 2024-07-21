@@ -24,7 +24,11 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
       try {
         const data = await FetchData(params.id);
         console.log(data.results);
-        setOrderData(data);
+
+        setOrderData({
+          ...data.results,
+          amount: JSON.parse(data.results.Amount),
+        });
         setInput(data?.results.PostNum);
         setSelectValue(data?.results.Status);
       } catch (error) {
@@ -38,13 +42,14 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
     ["주문자 이름:", "제품이름:"],
     ["주소:", "총 금액:"],
     ["수량:", "주문자 번호:"],
+    ["사이즈:", "색상:"],
   ];
   let list2 = [
-    "입금대기",
-    "입금완료",
-    "배송대기",
-    "배송출발",
-    "배송완료",
+    "입금 대기",
+    "입금 완료",
+    "배송 대기",
+    "배송 출발",
+    "배송 완료",
     "취소",
     "환불",
   ];
@@ -53,7 +58,7 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
     orderData?.results.Product,
     orderData?.results.Addr,
     orderData?.results.Price,
-    orderData?.results.Amount,
+    orderData?.results.Amount.amount,
     orderData?.results.Phone,
   ];
 
