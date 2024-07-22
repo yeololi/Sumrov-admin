@@ -12,6 +12,12 @@ import { useEffect, useState } from "react";
 import * as React from "react";
 import { useRouter } from "next/navigation";
 
+interface AmountType {
+  amount: number;
+  color: string;
+  size: string;
+}
+
 const DetailPage = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
 
@@ -27,7 +33,19 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
 
         setOrderData({
           ...data.results,
-          amount: JSON.parse(data.results.Amount),
+          amount: JSON.parse(data.results.Amount).map(
+            (value: AmountType) => value.amount
+          ),
+          size: JSON.parse(data.results.Amount).map(
+            (value: AmountType) => value.size
+          ),
+          color: JSON.parse(data.results.Amount).map(
+            (value: AmountType) => value.color
+          ),
+          price: JSON.parse(data.results.Price),
+          product: JSON.parse(data.results.Product).map(
+            (value: string[]) => value
+          ),
         });
         setInput(data?.results.PostNum);
         setSelectValue(data?.results.Status);
@@ -54,18 +72,20 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
     "환불",
   ];
   let list3 = [
-    orderData?.results.CustomerName,
-    orderData?.results.Product,
-    orderData?.results.Addr,
-    orderData?.results.Price,
-    orderData?.results.Amount.amount,
-    orderData?.results.Phone,
+    orderData?.CustomerName,
+    orderData?.product,
+    orderData?.Addr.split(";").join(" "),
+    orderData?.price,
+    orderData?.amount,
+    orderData?.Phone,
+    orderData?.size,
+    orderData?.color,
   ];
 
   const saveForm = async () => {
     try {
       const res = await fetch(
-        "http://3.39.237.151:8080/sale/" + orderData.results.Uuid,
+        "http://3.39.237.151:8080/sale/" + orderData.Uuid,
         {
           method: "PUT",
           body: JSON.stringify({ PostNum: input, status: selectValue }),
@@ -91,14 +111,14 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
         <div className="w-full bg-zinc-300 px-[22px] py-[44px] mt-9">
           <div className="flex flex-col">
             <div className="text-5xl h-[71px]">
-              {"주문 UUID: " + orderData?.results.Uuid}
+              {"주문 UUID: " + orderData?.Uuid}
             </div>
             <div className="text-5xl h-[71px]">
-              주문 일시: {orderData?.results.Date}
+              주문 일시: {orderData?.Date}
             </div>
           </div>
           <div className="flex w-full justify-center items-center flex-col mt-[77px]">
-            <div className="w-[70%] gap-[5px]">
+            <div className="w-full">
               {list1.map((arg, i) => (
                 <div className="flex flex-row h-[71px] text-3xl" key={i}>
                   <div className="flex h-full w-[50%]">
