@@ -9,6 +9,7 @@ export async function GET(
         : `http://3.39.237.151:8080/${params.type}/uuid/${params.uid}`,
       {
         method: "GET",
+        cache: "no-store",
       }
     ).then((r) => r.json());
     console.log(result);
