@@ -84,13 +84,12 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
 
   const saveForm = async () => {
     try {
-      const res = await fetch(
-        "http://3.39.237.151:8080/sale/" + orderData.Uuid,
-        {
-          method: "PUT",
-          body: JSON.stringify({ PostNum: input, status: selectValue }),
-        }
-      ).then((r) => r.json());
+      const res = await fetch("/api/put/sale/" + orderData.Uuid, {
+        method: "PUT",
+        body: JSON.stringify({ PostNum: input, status: selectValue }),
+      }).then((r) => r.json());
+
+      console.log(res);
 
       router.push("/");
     } catch (error) {
