@@ -4,6 +4,19 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import ListPage, { category } from "./listPage";
 
+export interface saleType {
+  Uuid: string;
+  CustomerName: string;
+  Product: string;
+  PostNum: string;
+  Addr: string;
+  Phone: string;
+  Price: string;
+  Amount: string;
+  Status: string;
+  Date: string;
+}
+
 const admin = false;
 
 const getData = async () => {
@@ -19,14 +32,16 @@ const getData = async () => {
   );
 
   try {
-    const results = await Promise.all(promises);
+    const results: { results: saleType[] }[] = await Promise.all(promises);
 
     return [
       {
         category: "주문목록",
         detail: true,
         plus: false,
-        data: results[0].results,
+        data: results[0].results.sort(
+          (a, b) => +new Date(b.Date) - +new Date(a.Date)
+        ),
       },
       {
         category: "상품관리",
