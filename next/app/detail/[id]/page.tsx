@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import FetchData from "@/lib/tryApi";
+import { FetchData } from "@/lib/tryApi";
 import { useEffect, useState } from "react";
 import * as React from "react";
 import { useRouter } from "next/navigation";

@@ -3,6 +3,7 @@ import Modal from "./modal";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import ListPage, { category } from "./listPage";
+import Link from "next/link";
 
 export interface saleType {
   Uuid: string;
@@ -75,9 +76,12 @@ export default async function Home() {
             <img className="w-9 h-9" src="/images/logo.png" />
             <div className="text-black text-4xl font-semibold">SUMROV</div>
           </div>
-          <div className="text-center text-black text-3xl font-semibold">
+          <Link
+            href={"/user"}
+            className="text-center text-black text-3xl font-semibold"
+          >
             회원정보
-          </div>
+          </Link>
         </nav>
 
         <Suspense fallback={<div>Loading...</div>}>
