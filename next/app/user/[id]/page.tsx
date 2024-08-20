@@ -36,6 +36,8 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
     ["이름:", "이메일:"],
     ["우편번호:", "주소:"],
     ["상세주소:", "전화번호:"],
+    ["생년월일:", "성별:"],
+    ["ci:", ""],
   ];
 
   let list2 = [
@@ -45,6 +47,10 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
     orderData?.address,
     orderData?.addrDetail,
     orderData?.tel,
+    [orderData?.year, orderData?.month, orderData?.day].join(". "),
+    orderData?.gender,
+    orderData?.ci,
+    "",
   ];
 
   return (

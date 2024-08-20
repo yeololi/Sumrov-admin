@@ -15,6 +15,11 @@ export interface UserType {
   address: string;
   addrDetail: string;
   tel: string;
+  year: string;
+  month: string;
+  day: string;
+  ci: string;
+  gender: string;
 }
 
 const admin = false;
