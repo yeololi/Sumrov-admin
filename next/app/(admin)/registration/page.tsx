@@ -3,7 +3,7 @@
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Menu, Minus, Plus, X } from "lucide-react";
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/select";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { headers } from "next/headers";
 
 const initialTagsState = {
   size: [],
@@ -40,6 +41,7 @@ const RegistrationPage = ({
   searchParams?: { uuid: string; type: "notice" | "post" };
 }) => {
   const router = useRouter();
+  const host = headers().get("host");
 
   const [tags, setTags] = useState<{
     size: string[];
@@ -60,7 +62,7 @@ const RegistrationPage = ({
       if (searchParams?.uuid) {
         try {
           const response = await fetch(
-            `/api/${searchParams.type}/${searchParams.uuid}`
+            `http://${host}/api/${searchParams.type}/${searchParams.uuid}`
           ).then((r) => r.json());
 
           console.log(response);
@@ -84,7 +86,7 @@ const RegistrationPage = ({
       }
     };
     fet();
-  }, [searchParams]);
+  }, []);
 
   const postFetch = async () => {
     setIsLoading(() => true);
@@ -125,12 +127,22 @@ const RegistrationPage = ({
 
       // console.log(body);
 
-      const res = await fetch("/api/post/new", {
-        method: "POST",
-        body: JSON.stringify(body),
-      }).then((r) => {
-        console.log(r);
-      });
+      if (!searchParams?.uuid) {
+        const res = await fetch("/api/post/new", {
+          method: "POST",
+          body: JSON.stringify(body),
+        }).then((r) => {
+          console.log(r);
+        });
+      } else {
+        const res = await fetch("/api/post/new", {
+          method: "POST",
+          body: JSON.stringify(body),
+        }).then((r) => {
+          console.log(r);
+        });
+      }
+
       setIsLoading(() => false);
       router.push("/");
       router.refresh();
