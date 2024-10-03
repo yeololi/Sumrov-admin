@@ -57,6 +57,7 @@ const RegistrationPage = ({
 
   useEffect(() => {
     const fet = async () => {
+      console.log(searchParams?.uuid);
       if (searchParams?.uuid) {
         try {
           const response = await fetch(
