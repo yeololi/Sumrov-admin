@@ -1,4 +1,5 @@
 interface res {
+  uuid: string;
   title: string;
   price: string;
   sale: number;
@@ -16,13 +17,11 @@ export async function POST(request: Request) {
   console.log(res);
 
   try {
-    const result = await fetch(`http://3.39.237.151:8080/post`, {
+    const result = await fetch(`http://3.39.237.151:8080/post/${res.uuid}`, {
       method: "PATCH",
       body: JSON.stringify(res),
     });
     // const user = await result.json();
-
-    console.log(result);
 
     if (result) {
     } else {

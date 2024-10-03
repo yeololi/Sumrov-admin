@@ -29,7 +29,7 @@ const initialInputsState = {
   price: "",
   sale: "",
   description: "",
-  category: "top",
+  category: "",
 };
 
 const yes = true;
@@ -135,7 +135,7 @@ const RegistrationPage = ({
       } else {
         res = await fetch("/api/post/patch", {
           method: "POST",
-          body: JSON.stringify(body),
+          body: JSON.stringify({ uuid: searchParams?.uuid, ...body }),
         }).then((r) => {
           console.log(r);
         });
@@ -256,7 +256,9 @@ const RegistrationPage = ({
                       카테고리
                     </div>
                     <RadioGroup
-                      defaultValue="top"
+                      defaultValue={
+                        inputs.category === "" ? "top" : inputs.category
+                      }
                       className="h-[35px] justify-center items-center gap-6 flex"
                       onValueChange={(value) => {
                         console.log(value);
