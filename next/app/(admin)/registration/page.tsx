@@ -89,7 +89,7 @@ const RegistrationPage = ({
     fet();
 
     console.log("221");
-  }, [searchParams]);
+  }, [searchParams?.uuid, searchParams?.type]);
 
   const postFetch = async () => {
     setIsLoading(() => true);
