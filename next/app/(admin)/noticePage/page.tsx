@@ -84,12 +84,31 @@ const RegistrationPage = ({
         images: [imageRes],
       };
 
-      const res = await fetch("/api/post/newNotice", {
+      let res;
+
+      // if (!searchParams?.uuid) {
+      //   res = await fetch("/api/post/newNotice", {
+      //     method: "POST",
+      //     body: JSON.stringify(body),
+      //   }).then((r) => {
+      //     console.log(r);
+      //   });
+      // } else {
+      //   res = await fetch("/api/post/patchNotice", {
+      //     method: "POST",
+      //     body: JSON.stringify(body),
+      //   }).then((r) => {
+      //     console.log(r);
+      //   });
+      // }
+
+      res = await fetch("/api/post/newNotice", {
         method: "POST",
         body: JSON.stringify(body),
       }).then((r) => {
         console.log(r);
       });
+
       setIsLoading(() => false);
       router.push("/");
       router.refresh();
