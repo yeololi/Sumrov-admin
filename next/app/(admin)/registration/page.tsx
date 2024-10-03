@@ -84,7 +84,7 @@ const RegistrationPage = ({
       }
     };
     fet();
-  }, []);
+  }, [searchParams]);
 
   const postFetch = async () => {
     setIsLoading(() => true);
