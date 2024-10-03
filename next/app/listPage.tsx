@@ -77,7 +77,7 @@ const ListPage = ({ args, i }: { args: category; i: number }) => {
             </Link>
           )}
         </div>
-        <ScrollArea className="h-[500px] px-4 py-[30px] bg-zinc-300 flex-col justify-start items-start flex">
+        <ScrollArea className="h-[500px] px-4 py-[30px] bg-zinc-300 flex-col justify-start items-start flex min-w-[472px]">
           {Array.isArray(args.data) &&
             args.data.map((arg, j) => (
               <div

@@ -1,12 +1,5 @@
 "use client";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { FetchData2 } from "@/lib/tryApi";
 import { useEffect, useState } from "react";
 import * as React from "react";

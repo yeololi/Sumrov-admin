@@ -133,6 +133,7 @@ const RegistrationPage = ({
       });
       setIsLoading(() => false);
       router.push("/");
+      router.refresh();
     } catch (error) {
       console.error(error);
       setIsLoading(() => false);
@@ -295,6 +296,21 @@ const RegistrationPage = ({
                             className="text-black text-sm font-normal font-pre cursor-pointer"
                           >
                             ACC
+                          </Label>
+                        </div>
+                      </div>
+                      <div className="pr-3 pt-[5px] pb-1.5 justify-start items-center flex">
+                        <div className="self-stretch px-3 justify-start items-center gap-3 inline-flex">
+                          <RadioGroupItem
+                            id="outer"
+                            value="outer"
+                            className="w-6 h-6"
+                          />
+                          <Label
+                            htmlFor="outer"
+                            className="text-black text-sm font-normal font-pre cursor-pointer"
+                          >
+                            OUTER
                           </Label>
                         </div>
                       </div>
@@ -628,6 +644,7 @@ const RegistrationPage = ({
                       tags.detailImage.map((ai, i) => (
                         <>
                           <img
+                            key={i}
                             className="w-[550px] h-[733.33px]"
                             src={createObjectURL[ai.name]}
                           />

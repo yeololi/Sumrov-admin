@@ -92,6 +92,7 @@ const RegistrationPage = ({
       });
       setIsLoading(() => false);
       router.push("/");
+      router.refresh();
     } catch (error) {
       console.error(error);
       setIsLoading(() => false);
