@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/select";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { headers } from "next/headers";
 
 const initialTagsState = {
   size: [],
@@ -41,7 +40,6 @@ const RegistrationPage = ({
   searchParams?: { uuid: string; type: "notice" | "post" };
 }) => {
   const router = useRouter();
-  const host = headers().get("host");
 
   const [tags, setTags] = useState<{
     size: string[];
@@ -62,8 +60,10 @@ const RegistrationPage = ({
       if (searchParams?.uuid) {
         try {
           const response = await fetch(
-            `http://${host}/api/${searchParams.type}/${searchParams.uuid}`
+            `/api/${searchParams.type}/${searchParams.uuid}`
           ).then((r) => r.json());
+
+          console.log(`/api/${searchParams.type}/${searchParams.uuid}`);
 
           console.log(response);
 
@@ -86,6 +86,8 @@ const RegistrationPage = ({
       }
     };
     fet();
+
+    console.log("221");
   }, []);
 
   const postFetch = async () => {
@@ -135,7 +137,7 @@ const RegistrationPage = ({
           console.log(r);
         });
       } else {
-        const res = await fetch("/api/post/new", {
+        const res = await fetch("/api/post/put", {
           method: "POST",
           body: JSON.stringify(body),
         }).then((r) => {
