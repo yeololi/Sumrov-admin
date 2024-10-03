@@ -55,7 +55,7 @@ const RegistrationPage = ({
       }
     };
     fet();
-  }, []);
+  }, [searchParams?.uuid, searchParams?.type]);
 
   const [isLoading, setIsLoading] = useState(false);
 

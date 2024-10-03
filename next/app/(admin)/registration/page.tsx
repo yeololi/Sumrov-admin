@@ -57,14 +57,11 @@ const RegistrationPage = ({
 
   useEffect(() => {
     const fet = async () => {
-      console.log(searchParams);
       if (searchParams?.uuid) {
         try {
           const response = await fetch(
             `/api/${searchParams.type}/${searchParams.uuid}`
           ).then((r) => r.json());
-
-          console.log(`/api/${searchParams.type}/${searchParams.uuid}`);
 
           console.log(response);
 
@@ -87,8 +84,6 @@ const RegistrationPage = ({
       }
     };
     fet();
-
-    console.log("221");
   }, [searchParams?.uuid, searchParams?.type]);
 
   const postFetch = async () => {
@@ -129,16 +124,16 @@ const RegistrationPage = ({
       };
 
       // console.log(body);
-
+      let res;
       if (!searchParams?.uuid) {
-        const res = await fetch("/api/post/new", {
+        res = await fetch("/api/post/new", {
           method: "POST",
           body: JSON.stringify(body),
         }).then((r) => {
           console.log(r);
         });
       } else {
-        const res = await fetch("/api/post/put", {
+        res = await fetch("/api/post/patch", {
           method: "POST",
           body: JSON.stringify(body),
         }).then((r) => {
@@ -240,7 +235,9 @@ const RegistrationPage = ({
                   SUMROV
                 </div>
               </Link>
-              <X />
+              <Link href="/">
+                <X />
+              </Link>
             </div>
           </div>
           <div className="w-[1125px] px-[350px] py-[15px] bg-zinc-600 border border-black justify-center items-center gap-2.5 inline-flex">
