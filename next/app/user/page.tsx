@@ -27,7 +27,7 @@ const admin = false;
 const getData = async (host: string): Promise<UserType[] | undefined> => {
   try {
     const results: { results: UserType[] } = await fetch(
-      `http://${host}/api/get/users`,
+      `http://${host}/api/get/users/`,
       {
         cache: "no-store",
       }
