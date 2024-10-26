@@ -43,9 +43,6 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
             (value: AmountType) => value.color
           ),
           price: JSON.parse(data.results.Price),
-          product: JSON.parse(data.results.Product).map(
-            (value: string[]) => value
-          ),
         });
         setInput(data?.results.PostNum);
         setSelectValue(data?.results.Status);
@@ -73,7 +70,7 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
   ];
   let list3 = [
     orderData?.CustomerName,
-    orderData?.product,
+    orderData?.Product,
     orderData?.Addr.split(";").join(" "),
     orderData?.price,
     orderData?.amount,
