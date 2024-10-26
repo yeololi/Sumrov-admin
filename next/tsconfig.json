@@ -10,8 +10,13 @@
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
+<<<<<<< Updated upstream
     "module": "Node16",
     "moduleResolution": "Node16",
+=======
+    "module": "esnext",
+    "moduleResolution": "bundler",
+>>>>>>> Stashed changes
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
