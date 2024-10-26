@@ -16,10 +16,8 @@ export async function DELETE(
 ) {
     const uid = params.uid;
 
-    const URI = process.env.DELETE_notice;
-
     try {
-        const result = await fetch(`${URI}${uid}`, {
+        const result = await fetch(`http://3.39.237.151:8080/post/${uid}`, {
             method: "DELETE",
         }).then((r) => r.json());
         console.log(result);
